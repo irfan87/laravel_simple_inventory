@@ -1,12 +1,13 @@
 <?php
 
+use App\Http\Controllers\ItemsController;
 use App\Models\Item;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    $items = Item::all();
+Route::get('/', [ItemsController::class, 'index'])->name('home');
 
-    return view('home', [
-        'items' => $items
-    ]);
-});
+Route::get('/products/create', [ItemsController::class, 'create']);
+
+Route::post('/products', [ItemsController::class, 'store']);
+
+Route::get('/products/{product}/edit', [ItemsController::class, 'edit']);

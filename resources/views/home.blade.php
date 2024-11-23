@@ -2,7 +2,7 @@
     <div class="container mt-20">
         <div class="d-flex justify-content-between align-items-center py-10">
             <h2 class="header">Laravel</h2>
-            <a href="#" class="btn btn-success">Create new product</a>
+            <a href="/products/create" class="btn btn-success">Create new product</a>
         </div>
         {{-- Datatables --}}
         <div class="mt-10">
@@ -18,15 +18,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($items as $item)
+                    @foreach ($products as $product)
                     <tr>
-                        <th scope="row">{{ $item->id }}</th>
-                        <td>{{ $item->name }}</td>
-                        <td>{{ $item->price }}</td>
-                        <td>{{ $item->details }}</td>
-                        <td>{{ $item->publish ? 'Yes' : 'No' }}</td>
+                        <th scope="row">{{ $product->id }}</th>
+                        <td>{{ $product->name }}</td>
+                        <td>{{ $product->price }}</td>
+                        <td>{{ $product->details }}</td>
+                        <td>{{ $product->publish ? 'Yes' : 'No' }}</td>
                         <td>
-                            <a href="#" class="btn btn-info">Show</a>
+                            <a href="/products/{{ $product->id }}" class="btn btn-info">Show</a>
                             <a href="#" class="btn btn-primary">Edit</a>
                             <a href="#" class="btn btn-danger">Delete</a>
                         </td>

@@ -9,4 +9,12 @@ class Item extends Model
 {
     /** @use HasFactory<\Database\Factories\ItemFactory> */
     use HasFactory;
+
+    protected $table = 'items';
+
+    protected $fillable = ['name', 'price', 'details', 'publish'];
+
+    protected $cast = [
+        'publish' => 'boolean'
+    ];
 }
