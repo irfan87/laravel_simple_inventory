@@ -22,4 +22,4 @@ yarn-error.log
 /.vscode
 /.zed
 
-resources/views/welcome__backup.blade.php
+resources/views/*__backup.blade.php
