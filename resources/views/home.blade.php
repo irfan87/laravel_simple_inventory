@@ -6,6 +6,11 @@
         </div>
         {{-- Datatables --}}
         <div class="mt-10">
+            @if ($products->isEmpty())
+                <div class="d-flex justify-content-between align-items-center">
+                    <p>No products in our database. Create new one.</p>
+                </div>
+            @endif
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -27,13 +32,18 @@
                         <td>{{ $product->publish ? 'Yes' : 'No' }}</td>
                         <td>
                             <a href="/products/{{ $product->id }}" class="btn btn-info">Show</a>
-                            <a href="#" class="btn btn-primary">Edit</a>
-                            <a href="#" class="btn btn-danger">Delete</a>
+                            <a href="/products/{{ $product->id }}/edit" class="btn btn-primary">Edit</a>
+                            <button class="btn btn-danger" form="delete-form-{{ $product->id }}">Delete</button>
                         </td>
                     </tr>
+                    <form action="/products/{{ $product->id }}" method="POST" class="hidden" id="delete-form-{{ $product->id }}">
+                        @csrf
+                        @method('DELETE')
+                    </form>
                     @endforeach
                 </tbody>
             </table>
+            {{ $products->links() }}
         </div>
     </div>
 </x-layout>

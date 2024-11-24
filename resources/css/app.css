@@ -1,1 +1,30 @@
 @import "bootstrap/dist/css/bootstrap.min.css";
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.pagination a,
+.pagination span {
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.pagination .active {
+    background-color: #007bff;
+    color: white;
+}
+
+/* Reset font size for page numbers */
+.pagination .page-link {
+    font-size: 14px !important;
+}
+
+/* Adjust icon size */
+.pagination .page-item i {
+    font-size: 14px !important;
+}
