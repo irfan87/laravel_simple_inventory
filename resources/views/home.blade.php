@@ -1,8 +1,18 @@
 <x-layout>
     <div class="container mt-20">
         <div class="d-flex justify-content-between align-items-center py-10">
-            <h2 class="header">Laravel</h2>
+            <a href="{{ route('home') }}">
+                <h2 class="header">Laravel</h2>
+            </a>
             <a href="/products/create" class="btn btn-success">Create new product</a>
+        </div>
+        <div class="container-fluid">
+            <form action="{{ route('search.results') }}" method="GET" class="d-flex mb-3 mt-3 p-12">
+                <input type="text" name="query" required class="form-control me-2" value="{{ request('query') }}" placeholder="Search your product" role="search">
+                <div class="">
+                    <button type="submit" class="btn btn-secondary">Search</button>
+                </div>
+            </form>
         </div>
         {{-- Datatables --}}
         <div class="mt-10">

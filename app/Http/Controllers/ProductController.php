@@ -11,7 +11,9 @@ class ProductController extends Controller
     {
         $products = Product::orderBy('created_at', 'DESC')->paginate(10);
 
-        return view('home', ['products' => $products]);
+        return view('home', [
+            'products' => $products
+        ]);
     }
 
     public function create()
@@ -69,9 +71,23 @@ class ProductController extends Controller
 
     public function destroy(Product $product)
     {
-        // dd($product);
         $product->delete();
 
         return redirect('/');
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        $products = Product::orderBy('created_at', 'DESC')
+            ->where('name', 'LIKE', "%{$query}%")
+            ->orWhere('details', 'LIKE', "{$query}")
+            ->paginate(10);
+
+        return view('products.index', [
+            'products' => $products,
+            'query' => $query
+        ]);
     }
 }
