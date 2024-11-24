@@ -27,7 +27,7 @@ A Laravel-based product management app demonstrating CRUD operations, search fun
     ```
 3. Configure `.env` file and run migrations:
     ```bash
-    php artisan migrate seed
+    php artisan migrate --seed
     ```
 4. Serve the app:
     ```bash
