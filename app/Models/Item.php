@@ -17,4 +17,6 @@ class Item extends Model
     protected $cast = [
         'publish' => 'boolean'
     ];
+
+    protected $primaryKey = 'id';
 }

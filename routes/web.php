@@ -1,13 +1,12 @@
 <?php
 
-use App\Http\Controllers\ItemsController;
-use App\Models\Item;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [ItemsController::class, 'index'])->name('home');
+Route::get('/', [ProductController::class, 'index'])->name('home');
+Route::get('/products/create', [ProductController::class, 'create']);
+Route::post('/products', [ProductController::class, 'store']);
 
-Route::get('/products/create', [ItemsController::class, 'create']);
+Route::get('/products/{product}', [ProductController::class, 'show']);
 
-Route::post('/products', [ItemsController::class, 'store']);
-
-Route::get('/products/{product}/edit', [ItemsController::class, 'edit']);
+// Route::get('/products/{product}/edit', [ItemsController::class, 'edit']);
