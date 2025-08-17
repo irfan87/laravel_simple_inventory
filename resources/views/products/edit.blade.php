@@ -1,42 +1,61 @@
 <x-layout>
-	<div class="d-flex justify-content-between align-items-center py-10">
-		<h1 class="heaeder">Edit Product</h1>
-		<a href="{{ route('home') }}" class="btn btn-primary">Back</a>
-	</div>
-	<form action="/products/{{ $product->id }}" method="POST">
-		@csrf
-		@method('PATCH')
-
-		<div class="mb-3">
-			<label for="name" class="form-label">Name:</label>
-			<input type="text" class="form-control" id="name" name="name" value="{{ $product->name }}" required>
-			@error('name')
-				<div class="text-danger">{{ $message }}</div>
-			@enderror
-		</div>
-		<div class="mb-3">
-			<label for="price" class="form-label">Price (RM):</label>
-			<input type="number" step=".01" class="form-control" id="price" name="price" value="{{ $product->price }}" required>
-			@error('price')
-				<div class="text-danger">{{ $message }}</div>
-			@enderror
-		</div>
-		<div class="mb-3">
-			<label for="details" class="form-label">Details:</label>
-			{{-- <input type="text" class="form-control" id="details"> --}}
-			<textarea class="form-control" name="details" id="details" cols="30" rows="10" required>{{ $product->details }}</textarea>
-			@error('details')
-				<div class="text-danger">{{ $message }}</div>
-			@enderror
-		</div>
-		<div class="mb-3 form-check">
-			<input type="radio" class="form-check-input" id="publish" name="publish" value="1" {{ old('publish', $product->publish) == 1 ? 'checked' : '' }}>
-			<label class="form-check-label" for="publish">Yes</label>
-		</div>
-		<div class="mb-3 form-check">
-			<input type="radio" class="form-check-input" id="publish" name="publish" value="0" {{ old('publish', $product->publish) == 0 ? 'checked' : '' }}>
-			<label class="form-check-label" for="publish">No</label>
-		</div>
-		<button type="submit" class="btn btn-primary">Submit</button>
-	</form>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 dark:text-gray-100 py-10">
+    <div class="flex justify-between items-center mb-10">
+        <h1 class="text-3xl font-bold">Edit Product</h1>
+        <a href="{{ route('home') }}" class="px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition-colors duration-200">
+            Back to List
+        </a>
+    </div>
+    <form action="/products/{{ $product->id }}" method="POST" class="max-w-2xl mx-auto">
+        @csrf
+        @method('PATCH')
+        <div class="mb-6">
+            <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Product Name</label>
+            <input type="text" id="name" name="name" value="{{ old('name', $product->name) }}"
+                   class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-primary-600 dark:bg-gray-700 dark:text-gray-100"
+                   required>
+            @error('name')
+                <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
+            @enderror
+        </div>
+        <div class="mb-6">
+            <label for="price" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Price (RM)</label>
+            <input type="number" step="0.01" id="price" name="price" value="{{ old('price', $product->price) }}"
+                   class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-primary-600 dark:bg-gray-700 dark:text-gray-100"
+                   required>
+            @error('price')
+                <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
+            @enderror
+        </div>
+        <div class="mb-6">
+            <label for="details" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Product Details</label>
+            <textarea id="details" name="details" rows="4"
+                      class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-primary-600 dark:bg-gray-700 dark:text-gray-100"
+                      required>{{ old('details', $product->details) }}</textarea>
+            @error('details')
+                <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
+            @enderror
+        </div>
+        <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Publish Status</label>
+            <div class="flex gap-4">
+                <div class="flex items-center">
+                    <input type="radio" id="publish_yes" name="publish" value="1"
+                           class="h-4 w-4 text-primary-600 border-gray-300 dark:border-gray-600 focus:ring-primary-600"
+                           {{ old('publish', $product->publish) == 1 ? 'checked' : '' }}>
+                    <label for="publish_yes" class="ml-2 text-sm text-gray-700 dark:text-gray-300">Yes</label>
+                </div>
+                <div class="flex items-center">
+                    <input type="radio" id="publish_no" name="publish" value="0"
+                           class="h-4 w-4 text-primary-600 border-gray-300 dark:border-gray-600 focus:ring-primary-600"
+                           {{ old('publish', $product->publish) == 0 ? 'checked' : '' }}>
+                    <label for="publish_no" class="ml-2 text-sm text-gray-700 dark:text-gray-300">No</label>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="w-full px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition-colors duration-200">
+            Update Product
+        </button>
+    </form>
+</div>
 </x-layout>

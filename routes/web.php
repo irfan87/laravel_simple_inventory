@@ -8,11 +8,11 @@ Route::get('/products/create', [ProductController::class, 'create']);
 
 Route::post('/products', [ProductController::class, 'store']);
 
-Route::get('/products/{product}', [ProductController::class, 'show']);
+Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
 Route::get('/products/{product}/edit', [ProductController::class, 'edit']);
 
 Route::patch('/products/{product}', [ProductController::class, 'update']);
 
 Route::delete('/products/{product}', [ProductController::class, 'destroy']);
 
-Route::get('/search', [ProductController::class, 'search'])->name('search.results');
+Route::get('/products/search', [ProductController::class, 'search'])->name('products.search');

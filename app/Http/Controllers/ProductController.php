@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -80,13 +81,41 @@ class ProductController extends Controller
     {
         $query = $request->input('query');
 
-        $products = Product::orderBy('created_at', 'DESC')
-            ->where('name', 'LIKE', "%{$query}%")
-            ->orWhere('details', 'LIKE', "{$query}")
-            ->paginate(10);
+        $products = Product::query()
+            ->when($query, function($q) use ($query) {
+                $q->where('name', 'LIKE', "%{$query}%")
+                  ->orWhere('details', 'LIKE', "%{$query}%");
+            })
+            ->orderBy('created_at', 'DESC');
+
+        // if ($request->ajax()) {
+        //     $results = $products->take(10)->get()->map(function($product) {
+        //         return [
+        //             'name' => $product->name, 
+        //             'url' => route('products.show', $product),
+        //             'details' => Str::limit($product->details, 40)
+        //         ];
+        //     });
+
+        //     return response()->json(['results' => $results]);
+        // }
+        if ($request->ajax()) {
+            return response()->json([
+                'results' => Product::where('name', 'like', "%{$query}%")
+                    ->orWhere('details', 'like', "%{$query}%")
+                    ->orderBy('created_at', 'DESC')
+                    ->take(10)
+                    ->get()
+                    ->map(fn($product) => [
+                        'name' => $product->name,
+                        'url' => route('products.show', $product),
+                        'details' => Str::limit($product->details, 40)
+                    ])
+            ]);
+        }
 
         return view('products.index', [
-            'products' => $products,
+            'products' => $products->paginate(10),
             'query' => $query
         ]);
     }

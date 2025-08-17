@@ -7,7 +7,7 @@
             <a href="/products/create" class="btn btn-success">Create new product</a>
         </div>
         <div class="container-fluid">
-            <form action="{{ route('search.results') }}" method="GET" class="d-flex mb-3 mt-3 p-12">
+            <form action="{{ route('home') }}" method="GET" class="d-flex mb-3 mt-3 p-12">
                 <input type="text" name="query" required class="form-control me-2" value="{{ request('query') }}" placeholder="Search your product" role="search">
                 <div class="">
                     <button type="submit" class="btn btn-secondary">Search</button>
